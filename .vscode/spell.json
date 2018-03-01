@@ -1,0 +1,27 @@
+{
+  "ignoreWordsList": [
+    "Cedato",
+    "javascript",
+    "autoplay",
+    "unmute",
+    "Urls",
+    "cedato",
+    "params",
+    "boolean",
+    "resize",
+    "init",
+    "Init",
+    "Params",
+    "aderror",
+    "adstartreq",
+    "adstart",
+    "adcomplete",
+    "adpause",
+    "adplay",
+    "adspaused"
+  ],
+  "ignoreRegExp": [
+    "/\\(.*\\.(jpg|jpeg|png|md|gif|JPG|JPEG|PNG|MD|GIF)\\)/g",
+    "/((http|https|ftp|git)\\S*)/g"
+  ]
+}
