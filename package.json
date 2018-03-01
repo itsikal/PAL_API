@@ -14,7 +14,16 @@
     "type": "git",
     "url": "https://github.com/itsikal/PAL_API.git"
   },
-  "scripts": {},
+  "scripts": {
+    "build": "npm run lint && tsc -p src -d",
+    "lint": "tslint src/**/*.ts"
+  },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "json-loader": "^0.5.7",
+    "ts-loader": "3.2.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2",
+    "webpack": "^3.10.0"
+  }
 }
