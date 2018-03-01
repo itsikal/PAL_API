@@ -3,5 +3,3 @@ nbproject/
 node_modules/
 build/
 npm-debug.log
-dist/*
-
