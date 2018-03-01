@@ -1,13 +1,10 @@
 var webpack = require("webpack");
 
 module.exports = {
-//   entry: {
-//     "index": "./examples/index.ts",
-//   },
+  entry: __dirname + '/src/api.ts',
   output: {
     path: __dirname +'/build/',
     filename: '[name].js',
-    //libraryTarget: "commonjs"
   },
   resolve: {
     extensions: [ '.js', '.ts', '.tsx'],
