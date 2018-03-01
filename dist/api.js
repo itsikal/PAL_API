@@ -1,4 +1,5 @@
 "use strict";
+exports.__esModule = true;
 function getWrapper(identifier) {
     var wrapper = null;
     if (identifier) {
@@ -9,3 +10,4 @@ function getWrapper(identifier) {
     }
     return wrapper;
 }
+exports.getWrapper = getWrapper;

@@ -1,1 +1,1 @@
-declare function getWrapper(identifier: string): HTMLElement | null;
+export declare function getWrapper(identifier: string): HTMLElement | null;
