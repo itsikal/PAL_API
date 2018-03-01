@@ -1,0 +1,20 @@
+{
+  "author": "Igor Tsikal",
+  "license": "MIT",
+  "name": "pal-api",
+  "version": "0.0.1",
+  "description": "pla API",
+  "main": "dist/pal-api.js",
+  "types": "dist/pal-api.d.ts",
+  "engines": {
+    "node": ">4.x.x",
+    "npm": ">2.x.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/itsikal/PAL_API.git"
+  },
+  "scripts": {},
+  "dependencies": {},
+  "devDependencies": {}
+}
