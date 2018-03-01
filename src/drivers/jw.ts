@@ -1,34 +1,55 @@
 type playerAPI = {
   on: (event: string, handler: (event: string) => void) => void;
   getState: () => string;
+  getWrapper: () => HTMLElement;
+  pause: () => void;
+  play: () => void;
 };
 
 declare var window: any;
 declare var jwplayer: (id: string) => playerAPI;
 
 export class JWdriver {
-
   static getAPI = (params: { id: string }) => window['jwplayer'] && jwplayer(params.id);
 
-  constructor(api: any) {
+  wrapper: HTMLElement;
+
+  constructor(api: any, wrapper: HTMLElement) {
     // API pointer
     this.api = api;
+    this.wrapper = wrapper;
   }
 
-  subscribe(params: { onPlayList: () => void, onAdPlay: (event?: string) => void }) {
+  subscribe(params: { onPlayList: () => void, onAdPlay: (event?: string) => void, onStateChange: (state?: boolean) => void }) {
     this.api.on('playlistItem', params.onPlayList);
     this.api.on('adStarted', params.onAdPlay);
     this.api.on('adError', params.onPlayList);
     this.api.on('play', () => {
-      this.playing = true;
+      params.onStateChange(true);
     });
     this.api.on('pause', () => {
-      this.playing = false;
+      params.onStateChange(false);
     });
     this.api.on('playlistComplete', () => {
-      this.playing = false;
+      params.onStateChange(false);
       params.onAdPlay();
     });
+  }
+
+  pause() {
+    this.api.pause();
+  }
+
+  play() {
+    this.api.play();
+  }
+
+  getState() {
+    this.api.getState();
+  }
+
+  getWrapper() {
+    return this.wrapper;
   }
 
   isPlaying() {
@@ -40,15 +61,16 @@ export class JWdriver {
 }
 
 export function getDriver(params: { selector: string, onReady: (driver: JWdriver) => void, onFail: () => void }) {
-  let api = tryGetDriver(params);
-  if (api) {
-    params.onReady(new JWdriver({ api }));
-  }
+  tryGetDriver(params.selector, (api, wrapper: HTMLElement) => {
+    if (api) {
+      params.onReady(new JWdriver( api, wrapper as HTMLElement));
+    }
+  });
 }
 
-export function tryGetDriver({ selector }: { selector: string }) {
+export function tryGetDriver(selector: string, resolve: (api: any, wrapper: HTMLElement) => void) {
   let api;
-  let wrapper;
+  let wrapper: HTMLElement;
   let failCount = 0;
   let interval = setInterval(() => {
     if (failCount > 10) {
@@ -57,23 +79,25 @@ export function tryGetDriver({ selector }: { selector: string }) {
     wrapper = tryGetWrapper(selector);
     if (wrapper) {
       api = tryGetAPI(wrapper.id);
+      if (api) {
+        clearInterval(interval);
+        resolve(api, wrapper);
+      }
     }
     failCount++;
   }, 1000);
-
-  return api;
 }
 
 export function tryGetWrapper(selector: string) {
   let wrapper;
   if (selector) {
     wrapper = document.getElementById(selector);
-    if (wrapper) {
+    if (!wrapper) {
       wrapper = document.getElementsByClassName(selector)[0];
     }
   }
 
-  return wrapper;
+  return wrapper as HTMLElement;
 }
 
 export function tryGetAPI(id: string) {
