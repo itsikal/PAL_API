@@ -2,7 +2,7 @@
   "author": "Igor Tsikal",
   "license": "MIT",
   "name": "pal-api",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "pla API",
   "main": "dist/pal-api.js",
   "types": "dist/pal-api.d.ts",

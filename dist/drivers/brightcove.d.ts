@@ -1,5 +1,5 @@
 import { Driver, playerAPI } from '../api';
-export default class JWdriver extends Driver {
+export default class BrightcoveDriver extends Driver {
     static getAPI: (params: {
         id: string;
     }) => playerAPI;
